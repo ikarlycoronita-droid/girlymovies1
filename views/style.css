@@ -1,0 +1,35 @@
+body {
+  background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+}
+
+body,h1,h2,h3,h4,h5,h6 {
+  font-family: "Raleway", sans-serif;
+}
+
+body {
+  background-color: #f7f2f7;
+}
+
+h1 {
+  color: #d63384;
+}
+
+.w3-white {
+  border-radius: 12px;
+}
+
+.w3-container.w3-white {
+  padding: 15px;
+}
+
+/* Tarjetas más bonitas */
+.movie-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.movie-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}

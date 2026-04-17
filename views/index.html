@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>GirlysMovie · Colección de Cine</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- W3.CSS + Raleway + Font Awesome -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <style>
+    /* NUEVA PALETA DE COLORES */
+    :root {
+      --bittersweet: #ff6e61;
+      --texas-rose: #ffb84d;
+      --glacier: #6d9dc5;
+      --butterfly-bush: #5e4b8b;
+      --amaranth: #da1b61;
+      --fondo-claro: #fff7f5;
+    }
+
+    body, h1, h2, h3, h4, h5, h6 {
+      font-family: "Raleway", sans-serif;
+    }
+
+    body {
+      background: var(--fondo-claro);
+      background: linear-gradient(135deg, #fff3f0 0%, #ffe2db 100%);
+    }
+
+    /* Sidebar con acentos morados */
+    .w3-sidebar {
+      background: rgba(255, 250, 248, 0.97);
+      backdrop-filter: blur(2px);
+      border-right: 1px solid rgba(218, 27, 97, 0.2);
+      box-shadow: 6px 0 18px rgba(0, 0, 0, 0.03);
+    }
+
+    /* Títulos principales color amaranth */
+    h1 b, h4 b {
+      color: var(--amaranth);
+      text-shadow: 1px 1px 0 #ffe0e7;
+    }
+
+    /* Tarjetas de película - estilo póster */
+    .movie-card {
+      border-radius: 28px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 15px 28px rgba(0, 0, 0, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.3s;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .movie-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 35px rgba(109, 157, 197, 0.3);
+    }
+
+    /* IMAGEN ALTA (estilo póster) */
+    .movie-img {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+      object-position: center top;
+      background: #ffe2db;
+      transition: all 0.2s;
+      display: block;
+    }
+
+    .movie-card .w3-container {
+      background: white;
+      padding: 18px 16px 20px;
+      flex: 1;
+    }
+
+    .stars {
+      color: var(--texas-rose);
+      letter-spacing: 2px;
+      font-size: 1.1rem;
+      margin: 6px 0;
+    }
+
+    .quote {
+      font-size: 0.85rem;
+      color: #b14e62;
+      font-style: italic;
+      margin: 10px 0;
+      line-height: 1.35;
+    }
+
+    /* Botón tráiler con paleta */
+    .btn-trailer {
+      background-color: var(--texas-rose);
+      border: none;
+      border-radius: 60px;
+      padding: 8px 20px;
+      font-weight: 600;
+      transition: 0.2s;
+      color: #3a2a2a;
+      cursor: pointer;
+      font-size: 0.85rem;
+      margin-top: 8px;
+      display: inline-block;
+    }
+
+    .btn-trailer:hover {
+      background-color: var(--bittersweet);
+      color: white;
+      transform: scale(1.02);
+    }
+
+    /* Filtros y buscador */
+    .filter-btn {
+      border-radius: 40px;
+      transition: all 0.2s;
+      margin-right: 5px;
+    }
+    .filter-btn-active {
+      background-color: var(--glacier) !important;
+      color: white !important;
+    }
+    input#searchInput {
+      border-radius: 60px;
+      border: 1px solid #f5c2b5;
+      padding: 8px 18px;
+      width: 220px;
+      font-family: inherit;
+      background: white;
+    }
+    input#searchInput:focus {
+      outline: none;
+      border-color: var(--bittersweet);
+      box-shadow: 0 0 0 2px rgba(255, 110, 97, 0.3);
+    }
+
+    /* Paginación */
+    .w3-bar-item.w3-black {
+      background-color: var(--butterfly-bush) !important;
+    }
+    .w3-button.w3-hover-black:hover {
+      background-color: var(--glacier) !important;
+      color: white;
+    }
+
+    /* Secciones about, precios, contacto con colores de paleta */
+    .w3-teal {
+      background-color: var(--bittersweet) !important;
+    }
+    .w3-dark-grey {
+      background-color: #f7dfd9 !important;
+    }
+    .w3-black {
+      background-color: var(--butterfly-bush) !important;
+    }
+    .w3-grey {
+      background-color: #ffede8 !important;
+    }
+    .w3-button.w3-teal:hover {
+      background-color: var(--amaranth) !important;
+    }
+    hr {
+      border-color: #ffcdc2;
+    }
+    .w3-tag.w3-black {
+      background-color: var(--glacier) !important;
+    }
+    .w3-container a {
+      color: var(--amaranth);
+      font-weight: 500;
+    }
+
+    /* Contacto */
+    .w3-dark-grey.contact-block {
+      background: #f7dfd9 !important;
+    }
+    .w3-teal.contact-block {
+      background: #ffcdc2 !important;
+    }
+    footer.w3-dark-grey {
+      background: #eccfc7 !important;
+    }
+    .w3-black.w3-center {
+      background: var(--butterfly-bush) !important;
+    }
+  </style>
+</head>
+<body class="w3-light-grey w3-content" style="max-width:1600px">
+
+<!-- SIDEBAR (estructura original sin emojis) -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar">
+  <br>
+  <div class="w3-container">
+    <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
+      <i class="fa fa-remove"></i>
+    </a>
+    <div class="w3-center">
+      <i class="fa fa-film w3-jumbo" style="color: #da1b61;"></i>
+    </div>
+    <br>
+    <h4><b>GIRLYSMOVIE</b></h4>
+    <p class="w3-text-grey">Cine con identidad visual</p>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#portfolio" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal">
+      <i class="fa fa-th-large fa-fw w3-margin-right"></i>PELICULAS
+    </a> 
+    <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding">
+      <i class="fa fa-user fa-fw w3-margin-right"></i>SOBRE NOSOTRAS
+    </a> 
+    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding">
+      <i class="fa fa-envelope fa-fw w3-margin-right"></i>CONTACTO
+    </a>
+  </div>
+  <div class="w3-panel w3-large">
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-spotify w3-hover-opacity"></i>
+  </div>
+</nav>
+
+<!-- Overlay mobile -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+
+<!-- CONTENIDO PRINCIPAL -->
+<div class="w3-main" style="margin-left:300px">
+
+  <!-- HEADER con filtros + buscador (sin emojis) -->
+  <header id="portfolio">
+    <a href="#"><i class="fa fa-film w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity" style="font-size:48px; color:#da1b61;"></i></a>
+    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+    <div class="w3-container">
+      <h1><b>Mi catalogo de ensueño</b></h1>
+      <div class="w3-section w3-bottombar w3-padding-16" style="border-bottom: 3px solid #ffb84d !important;">
+        <span class="w3-margin-right">Filtrar por genero:</span> 
+        <button class="w3-button filter-btn w3-black" data-genre="all">TODOS</button>
+        <button class="w3-button filter-btn w3-white" data-genre="Romance">Romance</button>
+        <button class="w3-button filter-btn w3-white w3-hide-small" data-genre="Drama">Drama</button>
+        <button class="w3-button filter-btn w3-white w3-hide-small" data-genre="Comedia">Comedia</button>
+        <button class="w3-button filter-btn w3-white w3-hide-small" data-genre="Animación">Animacion</button>
+        
+        <div style="float:right; display:flex; gap:8px;">
+          <input type="text" id="searchInput" placeholder="Buscar pelicula...">
+        </div>
+        <div style="clear:both"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- GRID DE PELICULAS (tarjetas con imagenes altas estilo poster) -->
+  <div id="moviesGridContainer" class="w3-row-padding">
+    <!-- JS renderiza dinamicamente -->
+  </div>
+
+  <!-- PAGINACION -->
+  <div class="w3-center w3-padding-32" id="paginationWrapper">
+    <div class="w3-bar" id="paginationButtons"></div>
+  </div>
+
+  <!-- SECCION "Images of Me" adaptada a cine -->
+  <div class="w3-row-padding w3-padding-16" id="about">
+    <div class="w3-col m6">
+      <img src="minion.jpg " alt="Cine nights" style="width:100%; border-radius: 36px;">
+    </div>
+    <div class="w3-col m6">
+      <img src="dump.jpg" alt="amigas cine" style="width:100%; border-radius: 36px;">
+    </div>
+  </div>
+
+  <!-- ABOUT con paleta nueva sin emojis -->
+  <div class="w3-container w3-padding-large" style="margin-bottom:32px; background: #fff8f6; border-radius: 48px;">
+    <h4><b>Sobre GirlysMovie</b></h4>
+    <p>Un espacio dedicado a recomendar películas que emocionan, inspiran y conectan. Desde clásicos del romance hasta joyas animadas, cada título ha sido seleccionado con el corazón. Somos amantes del cine independiente, las historias de mujeres y los finales que dejan el alma flotando. Acomódate, prepara las palomitas y descubre tu próxima película favorita.</p>
+    <hr>
+    
+    <h4>Generos que más amamos</h4>
+    <p>Romance / coming of age</p>
+    <div class="w3-grey">
+      <div class="w3-container w3-dark-grey w3-padding w3-center" style="width:94%; background: #f7dfd9 !important;">94%</div>
+    </div>
+    <p>Drama emocional</p>
+    <div class="w3-grey">
+      <div class="w3-container w3-dark-grey w3-padding w3-center" style="width:88%; background: #f7dfd9 !important;">88%</div>
+    </div>
+    <p>Comedia romántica</p>
+    <div class="w3-grey">
+      <div class="w3-container w3-dark-grey w3-padding w3-center" style="width:82%; background: #f7dfd9 !important;">82%</div>
+    </div>
+    <p>
+      <button class="w3-button w3-dark-grey w3-padding-large w3-margin-top w3-margin-bottom" style="background:#ffb84d !important; color:#3a2a2a;">
+        <i class="fa fa-download w3-margin-right"></i>Descargar lista de favoritas
+      </button>
+    </p>
+    <hr>
+    
+    <h4>Planes de membresía cineclub</h4>
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-third w3-margin-bottom">
+        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off" style="border-radius: 24px;">
+          <li class="w3-black w3-xlarge w3-padding-32" style="border-radius: 24px 24px 0 0; background:#5e4b8b !important;">Basica</li>
+          <li class="w3-padding-16">1 pelicula / mes</li>
+          <li class="w3-padding-16">Reseñas exclusivas</li>
+          <li class="w3-padding-16">Sorteos mensuales</li>
+          <li class="w3-padding-16">Newsletter semanal</li>
+          <li class="w3-padding-16"><h2>$ 4.99</h2><span class="w3-opacity">al mes</span></li>
+          <li class="w3-light-grey w3-padding-24"><button class="w3-button w3-teal w3-padding-large w3-hover-black" style="background:#ff6e61 !important;">Unirme</button></li>
+        </ul>
+      </div>
+      <div class="w3-third w3-margin-bottom">
+        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off" style="border-radius: 24px;">
+          <li class="w3-teal w3-xlarge w3-padding-32" style="border-radius: 24px 24px 0 0; background:#ff6e61 !important;">Cinefilia Pro</li>
+          <li class="w3-padding-16">4 peliculas / mes</li>
+          <li class="w3-padding-16">Acceso a club de lectura</li>
+          <li class="w3-padding-16">Guias de directoras</li>
+          <li class="w3-padding-16">Maratones tematicas</li>
+          <li class="w3-padding-16"><h2>$ 12.99</h2><span class="w3-opacity">al mes</span></li>
+          <li class="w3-light-grey w3-padding-24"><button class="w3-button w3-teal w3-padding-large w3-hover-black" style="background:#ff6e61 !important;">Unirme</button></li>
+        </ul>
+      </div>
+      <div class="w3-third">
+        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off" style="border-radius: 24px;">
+          <li class="w3-black w3-xlarge w3-padding-32" style="border-radius: 24px 24px 0 0; background:#5e4b8b !important;">Premium Unlimited</li>
+          <li class="w3-padding-16">Acceso ilimitado</li>
+          <li class="w3-padding-16">Encuentros con criticas</li>
+          <li class="w3-padding-16">Pack sorpresa cinéfilo</li>
+          <li class="w3-padding-16">Soporte VIP</li>
+          <li class="w3-padding-16"><h2>$ 19.99</h2><span class="w3-opacity">al mes</span></li>
+          <li class="w3-light-grey w3-padding-24"><button class="w3-button w3-teal w3-padding-large w3-hover-black" style="background:#ff6e61 !important;">Unirme</button></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- CONTACT SECTION sin emojis -->
+  <div class="w3-container w3-padding-large w3-grey" style="background:#fff1ed !important; border-radius: 48px 48px 0 0;">
+    <h4 id="contact"><b>Escríbenos</b></h4>
+    <div class="w3-row-padding w3-center w3-padding-24" style="margin:0 -16px">
+      <div class="w3-third w3-dark-grey" style="background:#f7dfd9 !important;">
+        <p><i class="fa fa-envelope w3-xxlarge w3-text-light-grey"></i></p>
+        <p>hello@girlysmovie.com</p>
+      </div>
+      <div class="w3-third w3-teal" style="background:#ffcdc2 !important;">
+        <p><i class="fa fa-map-marker w3-xxlarge w3-text-light-grey"></i></p>
+        <p>CDMX / MEXICO</p>
+      </div>
+      <div class="w3-third w3-dark-grey" style="background:#f7dfd9 !important;">
+        <p><i class="fa fa-phone w3-xxlarge w3-text-light-grey"></i></p>
+        <p>+34 612 345 678</p>
+      </div>
+    </div>
+    <hr class="w3-opacity">
+    <form action="#" target="_blank">
+      <div class="w3-section">
+        <label>Nombre</label>
+        <input class="w3-input w3-border" type="text" name="Name" required style="border-radius: 60px;">
+      </div>
+      <div class="w3-section">
+        <label>Email</label>
+        <input class="w3-input w3-border" type="text" name="Email" required style="border-radius: 60px;">
+      </div>
+      <div class="w3-section">
+        <label>Mensaje</label>
+        <input class="w3-input w3-border" type="text" name="Message" required style="border-radius: 60px;">
+      </div>
+      <button type="submit" class="w3-button w3-black w3-margin-bottom" style="border-radius: 60px; background:#da1b61 !important;"><i class="fa fa-paper-plane w3-margin-right"></i>Enviar mensaje</button>
+    </form>
+  </div>
+
+  <!-- FOOTER sin emojis -->
+  <footer class="w3-container w3-padding-32 w3-dark-grey" style="background:#eccfc7 !important;">
+    <div class="w3-row-padding">
+      <div class="w3-third">
+        <h3>GirlysMovie</h3>
+        <p>Un rincón donde las historias de mujeres, el romance y la magia del indie encuentran su voz. Síguenos para más recomendaciones.</p>
+        <p>Inspirado con amor por <a href="#" target="_blank">w3.css & co.</a></p>
+      </div>
+      <div class="w3-third">
+        <h3>Últimas en el blog</h3>
+        <ul class="w3-ul w3-hoverable">
+          <li class="w3-padding-16"><i class="fa fa-heart w3-left w3-margin-right" style="font-size:32px; color:#ff6e61;"></i><span class="w3-large">10 películas para llorar a moco tendido</span><br><span>Descubre dramas que sanan</span></li>
+          <li class="w3-padding-16"><i class="fa fa-star w3-left w3-margin-right" style="font-size:32px; color:#ffb84d;"></i><span class="w3-large">Estrenos románticos 2025</span><br><span>Amor, comedia y más</span></li> 
+        </ul>
+      </div>
+      <div class="w3-third">
+        <h3>Tags favoritos</h3>
+        <p>
+          <span class="w3-tag w3-black w3-margin-bottom">Romance coreano</span> 
+          <span class="w3-tag w3-grey w3-small w3-margin-bottom">Coming of age</span> 
+          <span class="w3-tag w3-grey w3-small w3-margin-bottom">Chick flick</span>
+          <span class="w3-tag w3-grey w3-small w3-margin-bottom">Animacion Ghibli</span> 
+          <span class="w3-tag w3-grey w3-small w3-margin-bottom">Dramas femeninos</span> 
+          <span class="w3-tag w3-grey w3-small w3-margin-bottom">Indie</span>
+          <span class="w3-tag w3-grey w3-small w3-margin-bottom">Amigas</span> 
+          <span class="w3-tag w3-grey w3-small w3-margin-bottom">Empoderamiento</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+  <div class="w3-black w3-center w3-padding-24" style="background:#5e4b8b !important;">Cine para cinéfilas románticas · Diseño con paleta exclusiva</div>
+</div>
+
+<script>
+  // ========== DATOS DE PELÍCULAS (imágenes locales) ==========
+  // Asegúrate de que los archivos .jpg estén en la misma carpeta que este HTML
+  const moviesData = [
+    {
+      title: "Mujercitas",
+      genre: "Drama",
+      rating: 5,
+      quote: "Las mujeres tienen mente y alma, no solo corazón.",
+      trailer: "https://www.youtube.com/watch?v=AST2-4db4ic",
+      img: "mujercitas.jpg"
+    },
+    {
+      title: "Todo en todas partes",
+      genre: "Comedia",
+      rating: 5,
+      quote: "Siempre querré estar aquí contigo, incluso en el multiverso.",
+      trailer: "https://www.youtube.com/watch?v=wxN1T1uxQ2g",
+      img: "rocas.jpg"
+    },
+    {
+      title: "Lady Bird",
+      genre: "Drama",
+      rating: 4,
+      quote: "Te quiero. Gracias.",
+      trailer: "https://www.youtube.com/watch?v=cNi_HC839Wo",
+      img: "ladybird.jpg"
+    },
+    {
+      title: "El castillo vagabundo",
+      genre: "Animación",
+      rating: 5,
+      quote: "Un corazón voluble es un corazón que aún late.",
+      trailer: "https://www.youtube.com/watch?v=iwROgK94zcM",
+      img: "castillo.jpg"
+    },
+    {
+      title: "Little Miss Sunshine",
+      genre: "Comedia",
+      rating: 4,
+      quote: "Un perdedor es quien tiene miedo de intentarlo.",
+      trailer: "https://www.youtube.com/watch?v=wvwVkllXT80",
+      img: "little.jpg"
+    },
+    {
+      title: "Pequeñas grandes amigas",
+      genre: "Drama",
+      rating: 4,
+      quote: "Tengo miedo... pero tú también. Y eso está bien.",
+      trailer: "https://www.youtube.com/watch?v=K4p1rD8ZP6k",
+      img: "girls.jpg"
+    }
+  ];
+
+  let currentGenre = "all";
+  let currentSearch = "";
+  let currentPage = 1;
+  const itemsPerPage = 3;
+
+  function renderStars(rating) {
+    let starsHtml = "";
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) starsHtml += '<i class="fa fa-star"></i>';
+      else starsHtml += '<i class="fa fa-star-o"></i>';
+    }
+    return `<div class="stars">${starsHtml}</div>`;
+  }
+
+  function getFilteredMovies() {
+    return moviesData.filter(movie => {
+      const genreMatch = (currentGenre === "all") || (movie.genre === currentGenre);
+      const searchMatch = movie.title.toLowerCase().includes(currentSearch.toLowerCase());
+      return genreMatch && searchMatch;
+    });
+  }
+
+  function getPaginatedMovies(movies) {
+    const start = (currentPage - 1) * itemsPerPage;
+    return movies.slice(start, start + itemsPerPage);
+  }
+
+  function renderMovies() {
+    const filtered = getFilteredMovies();
+    const totalMovies = filtered.length;
+    const totalPages = Math.ceil(totalMovies / itemsPerPage);
+    if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    const paginated = getPaginatedMovies(filtered);
+    const container = document.getElementById("moviesGridContainer");
+    if (!container) return;
+
+    if (paginated.length === 0) {
+      container.innerHTML = `<div class="w3-container w3-padding-48 w3-center"><i class="fa fa-film w3-jumbo" style="color:#ff6e61;"></i><p class="w3-large">No encontramos ninguna película. Prueba otro género.</p></div>`;
+      renderPagination(totalPages);
+      return;
+    }
+
+    let html = `<div class="w3-row-padding">`;
+    for (let i = 0; i < paginated.length; i++) {
+      const movie = paginated[i];
+      if (i % 3 === 0 && i !== 0) html += `</div><div class="w3-row-padding" style="margin-top:24px;">`;
+      html += `
+        <div class="w3-third w3-container w3-margin-bottom">
+          <div class="movie-card">
+            <img class="movie-img" src="${movie.img}" alt="${movie.title}" onerror="this.src='https://placehold.co/600x460/FFD9E6/DA1B61?text=${encodeURIComponent(movie.title)}'">
+            <div class="w3-container">
+              <h4><b>${movie.title}</b></h4>
+              ${renderStars(movie.rating)}
+              <p class="quote">"${movie.quote}"</p>
+              <button class="btn-trailer" onclick="verTrailer('${movie.trailer}')">Ver tráiler</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    html += `</div>`;
+    container.innerHTML = html;
+    renderPagination(totalPages);
+  }
+
+  function renderPagination(totalPages) {
+    const pagContainer = document.getElementById("paginationButtons");
+    if (!pagContainer) return;
+    if (totalPages <= 1) {
+      pagContainer.innerHTML = `<div class="w3-center w3-padding"><span class="w3-text-grey">Una sola página</span></div>`;
+      return;
+    }
+    let pagHtml = `<a href="#" class="w3-bar-item w3-button w3-hover-black" data-page="prev">«</a>`;
+    for (let i = 1; i <= totalPages; i++) {
+      const activeClass = (i === currentPage) ? "w3-black" : "w3-button w3-hover-black";
+      pagHtml += `<a href="#" class="w3-bar-item ${activeClass}" data-page="${i}">${i}</a>`;
+    }
+    pagHtml += `<a href="#" class="w3-bar-item w3-button w3-hover-black" data-page="next">»</a>`;
+    pagContainer.innerHTML = pagHtml;
+
+    document.querySelectorAll("#paginationButtons a").forEach(link => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const pageVal = link.getAttribute("data-page");
+        if (pageVal === "prev") { if (currentPage > 1) currentPage--; }
+        else if (pageVal === "next") { if (currentPage < totalPages) currentPage++; }
+        else { currentPage = parseInt(pageVal); }
+        renderMovies();
+        window.scrollTo({ top: document.getElementById("portfolio").offsetTop - 20, behavior: "smooth" });
+      });
+    });
+  }
+
+  window.verTrailer = function(url) {
+    window.open(url, '_blank');
+  };
+
+  function setGenre(genre) {
+    currentGenre = genre;
+    currentPage = 1;
+    renderMovies();
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      const btnGenre = btn.getAttribute("data-genre");
+      if ((genre === "all" && btnGenre === "all") || (btnGenre === genre)) {
+        btn.classList.add("w3-black");
+        btn.classList.remove("w3-white");
+      } else {
+        btn.classList.add("w3-white");
+        btn.classList.remove("w3-black");
+      }
+    });
+  }
+
+  function setupSearch() {
+    const searchBox = document.getElementById("searchInput");
+    if (searchBox) {
+      searchBox.addEventListener("input", (e) => {
+        currentSearch = e.target.value;
+        currentPage = 1;
+        renderMovies();
+      });
+    }
+  }
+
+  function bindGenreButtons() {
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => setGenre(btn.getAttribute("data-genre")));
+    });
+  }
+
+  function init() {
+    renderMovies();
+    bindGenreButtons();
+    setupSearch();
+    const allBtn = document.querySelector(".filter-btn[data-genre='all']");
+    if (allBtn) allBtn.classList.add("w3-black");
+  }
+
+  // Sidebar functions
+  window.w3_open = function() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+  };
+  window.w3_close = function() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+  };
+
+  window.addEventListener("load", init);
+</script>
+
+</body>
+</html>
